@@ -14,6 +14,9 @@ class LolWatcher(discord.Client):
     champions = {}
     _names = {"fionnodo", "ron swanson", "santeniett", "single mums"}
 
+    GUILD_ID = 801880864921092118
+    CHANNEL_ID = 801880864921092118
+
     async def on_ready(self):
 
         print("Logged in as {}".format(self.user))
@@ -33,7 +36,7 @@ class LolWatcher(discord.Client):
                 print("{} is ingame!".format(name))
                 img = imagecreator.create(match_info, self.champions)
                 img.save("pic.jpg")
-                channel = client.get_guild(801880864921092118).get_channel(939296773934030900)
+                channel = client.get_guild(self.GUILD_ID).get_channel(self.CHANNEL_ID)
                 await channel.send(file=discord.File("pic.jpg"))
                 self.api.insert_match("{}".format(match_info["gameId"]))
             else:
